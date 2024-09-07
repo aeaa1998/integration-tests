@@ -1,0 +1,80 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+# default_platform(:ios)
+
+# platform :ios do
+#   desc "Description of what the lane does"
+#   lane :custom_lane do
+#     # add actions here: https://docs.fastlane.tools/actions
+#   end
+# end
+
+# default_platform(:android)
+
+desc "Upload Zip to Appetize"
+lane :upload_zip_ios_to_appetize do
+    appetize(
+    api_token: ENV['APPETIZE_API_TOKEN'], 
+    platform: 'ios',                      
+    path: './ios/hello-world.zip',       
+    note: 'iOS zip app uploaded via Fastlane',
+    timeout: 1800                          
+    )
+end
+
+desc "Upload tgz to Appetize"
+lane :upload_tgz_ios_to_appetize do
+    appetize(
+    api_token: ENV['APPETIZE_API_TOKEN'], 
+    platform: 'ios',                      
+    path: './ios/hello-world.tgz',       
+    note: 'iOS tgz app uploaded via Fastlane',
+    timeout: 1800                          
+    )
+end
+
+desc "Upload tar.gz to Appetize"
+lane :upload_tar_gz_ios_to_appetize do
+    appetize(
+    api_token: ENV['APPETIZE_API_TOKEN'], 
+    platform: 'ios',                      
+    path: './ios/hello-world.tar.gz',       
+    note: 'iOS tar.gz app uploaded via Fastlane',
+    timeout: 1800                          
+    )
+end
+
+desc "Test upload APK to Appetize"
+lane :upload_android_to_appetize do
+  appetize(
+    api_token: ENV['APPETIZE_API_TOKEN'], 
+    platform: 'android',                  
+    path: './apks/hello-world.apk',       
+    note: 'Uploaded via Fastlane',        
+    timeout: 1800                          
+  )
+end
+
+
+desc "Upload both Android and iOS apps to Appetize"
+lane :upload_both_to_appetize do
+  # iOS Uploads
+  upload_zip_ios_to_appetize
+  upload_tgz_ios_to_appetize
+  upload_tar_gz_ios_to_appetize
+  # Android uploads
+  upload_android_to_appetize
+end
